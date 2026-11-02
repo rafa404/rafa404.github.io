@@ -13,6 +13,7 @@
     "check": "astro check",
     "test:e2e": "playwright test",
     "test:a11y": "playwright test tests/accessibility.spec.ts",
+    "generate:cv": "node scripts/generate-public-cv.mjs",
     "audit:lighthouse": "lighthouse http://127.0.0.1:4321 --quiet --chrome-flags=--headless --output=json --output-path=./test-results/lighthouse.json"
   },
   "dependencies": {

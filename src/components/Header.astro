@@ -35,7 +35,7 @@ const links = [
         {links.map((link) => (
           <li><a href={link.href} data-section-link={link.section} aria-current={path.startsWith(`/${link.section}`) ? 'page' : undefined}>{link.label}</a></li>
         ))}
-        <li><a href="/cv/" aria-current={path === '/cv/' ? 'page' : undefined}>CV</a></li>
+        <li><a href={site.cv} target="_blank" rel="noopener noreferrer">CV</a></li>
         <li>
           <a class="nav-external" href={site.scholar} target="_blank" rel="noopener noreferrer">
             Scholar <ExternalIcon />

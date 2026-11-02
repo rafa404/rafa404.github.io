@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PublicationCard from '../components/PublicationCard.astro';
-import { experience, education, expertise } from '../data/site';
+import { site, experience, education, expertise } from '../data/site';
 import { publications } from '../data/publications';
 
 const statusOrder = { Published: 0, 'In press': 1, 'Under review': 2, Preprint: 3, Accepted: 4 } as const;
@@ -14,8 +14,16 @@ const publicResearch = [...publications].sort((a, b) => statusOrder[a.status] - 
 >
   <header class="page-hero">
     <div class="shell">
+      <p class="cv-print-name">{site.name}</p>
+      <p class="cv-print-role">{site.role} · Medical Imaging · Federated Learning · Trustworthy AI</p>
       <h1>Curriculum Vitae</h1>
-      <p>Research experience, education, technical expertise, and publications.</p>
+      <p class="cv-page-summary">Research experience, education, technical expertise, and publications.</p>
+      <p class="cv-print-links">
+        {site.location} · <a href={site.github}>github.com/rafa404</a> · <a href={site.linkedin}>linkedin.com/in/hafizrafi</a> · <a href={site.scholar}>Google Scholar</a>
+      </p>
+      <div class="hero-links cv-download">
+        <a class="button button-dark" href={site.cv} target="_blank" rel="noopener noreferrer">Open CV (PDF)</a>
+      </div>
     </div>
   </header>
 

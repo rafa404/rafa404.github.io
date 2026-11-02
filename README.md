@@ -36,6 +36,12 @@ npm run audit:lighthouse
 npm audit --audit-level=high
 ```
 
+The public CV PDF can be regenerated from the local preview with:
+
+```bash
+npm run generate:cv
+```
+
 `npm run build` runs `astro check` before producing the static site in `dist/`.
 
 ## GitHub Pages

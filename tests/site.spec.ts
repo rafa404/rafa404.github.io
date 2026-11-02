@@ -62,6 +62,24 @@ test('homepage exposes the restored research system and supplied portrait', asyn
   await expect(page.locator('.home-portrait figcaption')).toHaveCount(0);
 });
 
+test('CV links open the public PDF in a new tab', async ({ page, request }) => {
+  await page.goto('/');
+  const headerCv = page.getByRole('link', { name: 'CV', exact: true });
+  const homeCv = page.getByRole('link', { name: 'Open CV (PDF)', exact: true });
+  for (const link of [headerCv, homeCv]) {
+    await expect(link).toHaveAttribute('href', '/documents/mm-golam-hafiz-academic-cv.pdf');
+    await expect(link).toHaveAttribute('target', '_blank');
+    await expect(link).toHaveAttribute('rel', /noopener/);
+  }
+
+  const response = await request.get('/documents/mm-golam-hafiz-academic-cv.pdf');
+  expect(response.status()).toBe(200);
+  expect(response.headers()['content-type']).toContain('application/pdf');
+  const body = await response.body();
+  expect(body.subarray(0, 4).toString()).toBe('%PDF');
+  expect(body.byteLength).toBeGreaterThan(100_000);
+});
+
 test('homepage sections reveal as they enter the viewport', async ({ page }) => {
   await page.goto('/');
   const publicationIntro = page.locator('#publications .section-intro');

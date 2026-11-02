@@ -11,6 +11,7 @@ export const site = {
   github: 'https://github.com/rafa404',
   linkedin: 'https://linkedin.com/in/hafizrafi',
   scholar: 'https://scholar.google.com/citations?hl=en&user=ia5NgssAAAAJ',
+  cv: '/documents/mm-golam-hafiz-academic-cv.pdf',
 } as const;
 
 export const researchAreas = [
