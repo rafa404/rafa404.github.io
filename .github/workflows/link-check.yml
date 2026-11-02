@@ -1,30 +1,25 @@
 name: Link Check
 
 on:
-  push:
-    paths:
-      - '.github/workflows/link-check.yml'
-      - 'src/**'
-      - 'public/**'
-      - '*.md'
+  workflow_run:
+    workflows: ['Deploy to GitHub Pages']
+    types: [completed]
   schedule:
     - cron: '0 9 * * 1'
   workflow_dispatch:
 
 jobs:
   check:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
       - uses: lycheeverse/lychee-action@v2
         with:
           args: >-
             --no-progress
             --timeout 10
             --max-retries 1
-            --exclude '^http://127\.0\.0\.1'
-            --exclude '^https://(www\.)?doi\.org/\$'
             --exclude '^https://www\.sciencedirect\.com/'
             --exclude '^https://www\.scimagojr\.com/'
-            './**/*.astro' './**/*.ts' './**/*.md'
+            'https://rafa404.github.io'
           fail: true
