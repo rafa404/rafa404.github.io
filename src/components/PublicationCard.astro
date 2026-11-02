@@ -34,13 +34,11 @@ const authors = publication.authors;
     </p>
     <p class="publication-areas">{publication.areas.join(' · ')}</p>
   </div>
-  <div class="publication-actions">
-    {publication.metadataOnly ? (
-      <span class="metadata-note">Metadata only during peer review</span>
-    ) : (
-      <a href={`/publications/${publication.id}/`}>Read details</a>
-    )}
-    {publication.doi && <a href={`https://doi.org/${publication.doi}`} target="_blank" rel="noopener noreferrer">DOI</a>}
-    {publication.codeUrl && <a href={publication.codeUrl} target="_blank" rel="noopener noreferrer">Code</a>}
-  </div>
+  {(!publication.metadataOnly || publication.doi || publication.codeUrl) && (
+    <div class="publication-actions">
+      {!publication.metadataOnly && <a href={`/publications/${publication.id}/`}>Read details</a>}
+      {publication.doi && <a href={`https://doi.org/${publication.doi}`} target="_blank" rel="noopener noreferrer">DOI</a>}
+      {publication.codeUrl && <a href={publication.codeUrl} target="_blank" rel="noopener noreferrer">Code</a>}
+    </div>
+  )}
 </article>

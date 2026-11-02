@@ -1,7 +1,6 @@
 ---
 import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ResearchTopology from '../components/ResearchTopology.astro';
 import PublicationCard from '../components/PublicationCard.astro';
 import ArchitectureGallery from '../components/ArchitectureGallery.astro';
 import ResearchSystems from '../components/ResearchSystems.astro';
@@ -63,7 +62,7 @@ const graph = {
         <h1 id="home-title">Trustworthy medical AI, tested where uncertainty matters.</h1>
         <p class="hero-statement">{site.statement}</p>
         <div class="hero-links">
-          <a class="button button-dark" href="#publications">Read the research record</a>
+          <a class="button button-dark" href="#publications">View publications</a>
           <a class="button button-quiet" href={site.scholar} target="_blank" rel="noopener noreferrer">Google Scholar</a>
         </div>
         <p class="hero-affiliation"><span>{site.affiliation}</span><span>{site.location}</span></p>
@@ -84,10 +83,10 @@ const graph = {
     </div>
 
     <div class="shell research-counts" aria-label="Research output counts" data-reveal>
-      <div><strong>{counts.published}</strong><span>Published</span><small>Publisher-indexed records</small></div>
-      <div><strong>{counts.inPress}</strong><span>In press</span><small>Proceedings in production</small></div>
-      <div><strong>{counts.underReview}</strong><span>Under review</span><small>Metadata approved for display</small></div>
-      <div><strong>{counts.preprint}</strong><span>Public preprint</span><small>Verified archive record</small></div>
+      <div><strong>{counts.published}</strong><span>Published</span><small>Journal and conference papers</small></div>
+      <div><strong>{counts.inPress}</strong><span>In press</span><small>Forthcoming publications</small></div>
+      <div><strong>{counts.underReview}</strong><span>Under review</span><small>Current research</small></div>
+      <div><strong>{counts.preprint}</strong><span>Public preprint</span><small>Open research</small></div>
     </div>
   </section>
 
@@ -110,7 +109,6 @@ const graph = {
           </article>
         ))}
       </div>
-      <div data-reveal><ResearchTopology /></div>
     </div>
   </section>
 
@@ -119,8 +117,8 @@ const graph = {
       <div class="section-intro" data-reveal>
         <p class="section-marker mono">02 Publications</p>
         <div>
-          <h2 id="publications-title">From published evidence to active peer review.</h2>
-          <p>Exact author order and status are retained. Review-stage work is shown at metadata level only—no private abstract, manuscript, or reviewer material.</p>
+          <h2 id="publications-title">Publications and current work.</h2>
+          <p>Journal articles, conference papers, preprints, and research currently in peer review.</p>
         </div>
       </div>
 
@@ -131,7 +129,7 @@ const graph = {
       <div class="review-pipeline" data-reveal>
         <div class="review-pipeline-heading">
           <h3>In peer review</h3>
-          <p>Author-approved metadata from the updated CV.</p>
+          <p>Current work in medical imaging, federated learning, and robust AI.</p>
         </div>
         <div class="review-grid">
           {underReview.map((publication) => (
@@ -144,13 +142,12 @@ const graph = {
                 ))}
               </p>
               <p class="publication-areas">{publication.areas.join(' · ')}</p>
-              <span class="metadata-note">Manuscript details withheld during review</span>
             </article>
           ))}
         </div>
       </div>
 
-      <a class="all-link" href="/publications/">Browse all {publications.length} research records</a>
+      <a class="all-link" href="/publications/">Browse all {publications.length} publications</a>
     </div>
   </section>
 
@@ -159,8 +156,8 @@ const graph = {
       <div class="section-intro" data-reveal>
         <p class="section-marker mono">03 Systems & figures</p>
         <div>
-          <h2 id="systems-title">Architectures built to expose how the evidence moves.</h2>
-          <p>Named systems connect research claims to implementations. Original PowerPoint and draw.io figures remain pixel-faithful and open at full size.</p>
+          <h2 id="systems-title">Architectures behind the research.</h2>
+          <p>Explore selected segmentation, classification, and federated-learning systems, with figures available at full size.</p>
         </div>
       </div>
       <div data-reveal><ResearchSystems /></div>
@@ -179,7 +176,7 @@ const graph = {
         <p class="section-marker mono">04 Experience</p>
         <div>
           <h2 id="experience-title">Research discipline, carried into applied systems.</h2>
-          <p>Academic research, model evaluation, and production web engineering are kept in one evidence-led professional record.</p>
+          <p>Research, model evaluation, and production web engineering across academic and professional work.</p>
         </div>
       </div>
 
@@ -212,9 +209,9 @@ const graph = {
 
   <section class="section home-contact" aria-labelledby="cv-title">
     <div class="shell home-contact-panel" data-reveal>
-      <p class="section-marker mono">05 Research record</p>
-      <h2 id="cv-title">A complete academic record, without exposing confidential manuscripts.</h2>
-      <p>Review verified experience, education, technical expertise, publication status, and public research outputs.</p>
+      <p class="section-marker mono">05 CV & profile</p>
+      <h2 id="cv-title">Experience, education, and technical expertise.</h2>
+      <p>Explore research appointments, academic background, technical skills, and the complete publication list.</p>
       <div class="hero-links">
         <a class="button button-light" href="/cv/">Open professional CV</a>
         <a class="button button-outline-light" href={site.github} target="_blank" rel="noopener noreferrer">GitHub</a>

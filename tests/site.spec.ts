@@ -21,7 +21,7 @@ test('publication routes expose verified status and official links', async ({ pa
   await page.goto('/publications/2026-icpr-fed-ccg-osteosarcoma/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Client Communication Graphs');
   await expect(page.getByText('Published', { exact: true }).first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Open official record' })).toHaveAttribute('href', /springer\.com/);
+  await expect(page.getByRole('link', { name: 'View publication' })).toHaveAttribute('href', /springer\.com/);
 });
 
 test('Swin-MSEG-Pro is selected and exposes its verified publisher record', async ({ page }) => {
@@ -33,7 +33,7 @@ test('Swin-MSEG-Pro is selected and exposes its verified publisher record', asyn
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Swin-MSEG-Pro');
   await expect(page.getByText('Q1', { exact: false }).first()).toBeVisible();
   await expect(page.getByText('10.1016/j.array.2026.101265', { exact: true })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Open official record' })).toHaveAttribute('href', /sciencedirect\.com\/science\/article\/pii\/S2590005626005886/);
+  await expect(page.getByRole('link', { name: 'View publication' })).toHaveAttribute('href', /sciencedirect\.com\/science\/article\/pii\/S2590005626005886/);
 });
 
 test('author-confirmed conference records are presented as in press without fabricated DOI metadata', async ({ page }) => {
@@ -50,7 +50,7 @@ test('FedHisto-PAST exposes the author-approved public arXiv record', async ({ p
   await page.goto('/publications/fedhisto-past-arxiv-2026/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('FedHisto-PAST');
   await expect(page.getByText('Preprint', { exact: true }).first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Open official record' })).toHaveAttribute('href', 'https://arxiv.org/abs/2609.31150');
+  await expect(page.getByRole('link', { name: 'View publication' })).toHaveAttribute('href', 'https://arxiv.org/abs/2609.31150');
 });
 
 test('homepage exposes the restored research system and supplied portrait', async ({ page }) => {
@@ -68,28 +68,6 @@ test('homepage sections reveal as they enter the viewport', async ({ page }) => 
   await publicationIntro.scrollIntoViewIfNeeded();
   await expect(publicationIntro).toHaveClass(/is-revealed/);
   await expect.poll(() => publicationIntro.evaluate((element) => getComputedStyle(element).opacity)).toBe('1');
-});
-
-test('research constellation traces branches with pointer and keyboard interaction', async ({ page }) => {
-  await page.goto('/');
-  const map = page.locator('[data-topology-map]');
-  await map.scrollIntoViewIfNeeded();
-
-  const medical = map.getByRole('button', { name: /Imaging/i });
-  const federated = map.getByRole('button', { name: /Federated/i });
-  const uncertainty = map.getByRole('button', { name: /Uncertainty/i });
-  await expect(medical).toHaveAttribute('aria-pressed', 'true');
-
-  await federated.click();
-  await expect(map).toHaveAttribute('data-active', 'federated');
-  await expect(federated).toHaveAttribute('aria-pressed', 'true');
-  await expect(page.locator('#topology-detail-federated')).toBeVisible();
-  await expect(page.locator('#topology-detail-federated').getByRole('link', { name: /FedPAXA-Net/i })).toBeVisible();
-
-  await uncertainty.focus();
-  await expect(map).toHaveAttribute('data-active', 'uncertainty');
-  await uncertainty.blur();
-  await expect(map).toHaveAttribute('data-active', 'federated');
 });
 
 test('architecture plates share one visual stage and open an accessible dialog', async ({ page }) => {
@@ -119,8 +97,7 @@ test('author-approved under-review metadata is public while confidential manuscr
   for (const reviewRecord of reviewRecords) {
     await expect(visibleReviewRecords.getByText(reviewRecord, { exact: false })).toBeVisible();
   }
-  await expect(visibleReviewRecords.getByText('Metadata only during peer review', { exact: true })).toHaveCount(3);
-  await expect(visibleReviewRecords.getByRole('link', { name: 'Read publication detail' })).toHaveCount(0);
+  await expect(visibleReviewRecords.getByRole('link', { name: 'Read details' })).toHaveCount(0);
 
   for (const route of routes) {
     await page.goto(route);

@@ -52,10 +52,6 @@ for (const route of routes) {
         path: `test-results/visual/${testInfo.project.name}-architecture-swin.png`,
         animations: 'disabled',
       });
-      await page.locator('.topology').screenshot({
-        path: `test-results/visual/${testInfo.project.name}-research-constellation.png`,
-        animations: 'disabled',
-      });
     }
     if (route.name === 'publication') {
       await page.locator('.plate-image').first().screenshot({

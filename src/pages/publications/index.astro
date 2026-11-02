@@ -22,9 +22,9 @@ const countFor = (status: string) => status === 'All' ? records.length : records
 >
   <header class="page-hero publication-index-hero">
     <div class="shell">
-      <p class="page-kicker mono">Research record · updated November 2026</p>
-      <h1>Evidence at every stage.</h1>
-      <p>{records.length} author-approved research records, from publisher-indexed work to active peer review. Status is never promoted beyond the available evidence.</p>
+      <p class="page-kicker mono">Publications · updated November 2026</p>
+      <h1>Publications and current work.</h1>
+      <p>{records.length} journal articles, conference papers, preprints, and projects currently in peer review.</p>
       <dl class="record-summary" aria-label="Publication status summary">
         <div><dt>Published</dt><dd>{countFor('Published')}</dd></div>
         <div><dt>In press</dt><dd>{countFor('In press')}</dd></div>
@@ -38,8 +38,8 @@ const countFor = (status: string) => status === 'All' ? records.length : records
     <div class="shell">
       <div class="ledger-toolbar">
         <div>
-          <h2 id="publication-ledger-title">Publication ledger</h2>
-          <p id="filter-result" aria-live="polite">Showing all {records.length} records.</p>
+          <h2 id="publication-ledger-title">All publications</h2>
+          <p id="filter-result" aria-live="polite">Showing all {records.length} publications.</p>
         </div>
         <div class="publication-filters" role="group" aria-label="Filter publications by status">
           {filterOptions.map((option) => (
@@ -54,11 +54,6 @@ const countFor = (status: string) => status === 'All' ? records.length : records
             </button>
           ))}
         </div>
-      </div>
-
-      <div class="review-disclosure">
-        <strong>Peer-review boundary</strong>
-        <p>Under-review entries show author-approved title, author order, venue, and status only. Manuscripts, abstracts, reviewer details, and anonymous submissions remain private.</p>
       </div>
 
       <div id="publication-records" class="publication-list publication-ledger">
@@ -84,7 +79,7 @@ const countFor = (status: string) => status === 'All' ? records.length : records
         if (show) visible += 1;
       });
       buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.publicationFilter === filter)));
-      if (result) result.textContent = filter === 'all' ? `Showing all ${visible} records.` : `Showing ${visible} ${filter.replace('-', ' ')} records.`;
+      if (result) result.textContent = filter === 'all' ? `Showing all ${visible} publications.` : `Showing ${visible} ${filter.replace('-', ' ')} publications.`;
       if (updateUrl) {
         const url = new URL(window.location.href);
         if (filter === 'all') url.searchParams.delete('status');

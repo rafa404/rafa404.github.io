@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ResearchTopology from '../components/ResearchTopology.astro';
 import ArchitectureGallery from '../components/ArchitectureGallery.astro';
 import { researchAreas } from '../data/site';
 ---
@@ -16,17 +15,11 @@ import { researchAreas } from '../data/site';
     </div>
   </header>
 
-  <section class="section">
-    <div class="shell">
-      <ResearchTopology />
-    </div>
-  </section>
-
-  <section class="section section-rule" aria-labelledby="agenda-title">
+  <section class="section" aria-labelledby="agenda-title">
     <div class="shell">
       <div class="section-heading">
-        <h2 id="agenda-title">Research Agenda</h2>
-        <p>Current work is described through verified themes and author-approved review-stage metadata; manuscript content and anonymous submissions remain withheld.</p>
+        <h2 id="agenda-title">Current Research</h2>
+        <p>My work connects medical imaging, federated learning, uncertainty-aware prediction, and robustness across clinical sites.</p>
       </div>
       <div class="area-grid">
         {researchAreas.map((area) => (
@@ -43,7 +36,7 @@ import { researchAreas } from '../data/site';
     <div class="shell detail-grid">
       <div class="prose">
         <h2 id="method-title">Method</h2>
-        <p>Projects are evaluated through controlled comparisons, held-out testing, ablation studies, cross-dataset checks, calibration analysis, and explicit examination of model failure. Claims stay bounded by the evidence available in the paper and verified repository record.</p>
+        <p>I evaluate models with controlled comparisons, held-out testing, ablation studies, cross-dataset experiments, calibration analysis, and detailed error analysis.</p>
       </div>
       <dl class="detail-aside">
         <div class="aside-row"><dt>Clinical domains</dt><dd>Histopathology, MRI, gastrointestinal endoscopy</dd></div>
@@ -57,7 +50,7 @@ import { researchAreas } from '../data/site';
     <div class="shell">
       <div class="section-heading">
         <h2 id="plates-title">Architecture Index</h2>
-        <p>Original architecture figures from public or in-press work, extracted directly from the source PDFs.</p>
+        <p>Explore model diagrams for selected systems and publications.</p>
       </div>
       <ArchitectureGallery />
     </div>

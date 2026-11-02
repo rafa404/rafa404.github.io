@@ -42,7 +42,7 @@ const article = {
 
 <BaseLayout
   title={`${publication.shortTitle} | M.M. Golam Hafiz`}
-  description={`${publication.status} research on ${publication.areas.join(', ')}. Read the verified abstract, authors, venue, and official links.`}
+  description={`${publication.status} research on ${publication.areas.join(', ')}. Read the abstract, authors, venue, and publication links.`}
   ogType="article"
   graph={graph}
   article={article}
@@ -73,7 +73,6 @@ const article = {
       <article class="prose">
         <h2>Abstract</h2>
         <p>{publication.abstract}</p>
-        <p class="abstract-source">Author-approved source: {publication.abstractSource}.</p>
       </article>
       <aside aria-label="Publication details">
         <dl class="detail-aside">
@@ -87,7 +86,7 @@ const article = {
           <div class="aside-row"><dt>Research areas</dt><dd>{publication.areas.join(', ')}</dd></div>
         </dl>
         <div class="detail-links">
-          {publication.officialUrl && <a href={publication.officialUrl} target="_blank" rel="noopener noreferrer">Open official record</a>}
+          {publication.officialUrl && <a href={publication.officialUrl} target="_blank" rel="noopener noreferrer">View publication</a>}
           {publication.doi && <a href={`https://doi.org/${publication.doi}`} target="_blank" rel="noopener noreferrer">Resolve DOI</a>}
           {publication.codeUrl && <a href={publication.codeUrl} target="_blank" rel="noopener noreferrer">Open implementation</a>}
         </div>
@@ -100,7 +99,7 @@ const article = {
       <div class="shell">
         <div class="section-heading">
           <h2 id="paper-architecture">Original Architecture</h2>
-          <p>Exact embedded source asset from the approved paper; no AI recreation or visual redrawing.</p>
+          <p>Explore the model architecture and open the figure at full size.</p>
         </div>
         <ArchitectureGallery publicationId={publication.id} />
       </div>

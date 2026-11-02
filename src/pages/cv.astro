@@ -10,18 +10,18 @@ const publicResearch = [...publications].sort((a, b) => statusOrder[a.status] - 
 
 <BaseLayout
   title="Curriculum Vitae | M.M. Golam Hafiz"
-  description="Professional CV for AI/ML researcher M.M. Golam Hafiz, covering research experience, education, technical expertise, and verified publications."
+  description="Professional CV for AI/ML researcher M.M. Golam Hafiz, covering research experience, education, technical expertise, and publications."
 >
   <header class="page-hero">
     <div class="shell">
       <h1>Curriculum Vitae</h1>
-      <p>A public, privacy-conscious record of research appointments, education, technical expertise, and verified scholarly output.</p>
+      <p>Research experience, education, technical expertise, and publications.</p>
     </div>
   </header>
 
   <section class="section" aria-labelledby="experience-title">
     <div class="shell">
-      <div class="section-heading"><h2 id="experience-title">Experience</h2><p>Verified against the source CV in November 2026.</p></div>
+      <div class="section-heading"><h2 id="experience-title">Experience</h2><p>Research, teaching, and professional roles.</p></div>
       <div class="timeline">
         {experience.map((item) => (
           <article class="timeline-row">
@@ -35,7 +35,7 @@ const publicResearch = [...publications].sort((a, b) => statusOrder[a.status] - 
 
   <section class="section section-rule" aria-labelledby="education-title">
     <div class="shell">
-      <div class="section-heading"><h2 id="education-title">Education</h2><p>Degrees and results shown exactly as recorded in the source CV.</p></div>
+      <div class="section-heading"><h2 id="education-title">Education</h2><p>Academic background and qualifications.</p></div>
       <div class="timeline">
         {education.map((item) => (
           <article class="timeline-row">
@@ -49,7 +49,7 @@ const publicResearch = [...publications].sort((a, b) => statusOrder[a.status] - 
 
   <section class="section section-rule" aria-labelledby="expertise-title">
     <div class="shell">
-      <div class="section-heading"><h2 id="expertise-title">Technical Expertise</h2><p>Capabilities are grouped by research function; percentage bars and self-rated scores are intentionally omitted.</p></div>
+      <div class="section-heading"><h2 id="expertise-title">Technical Expertise</h2><p>Tools and methods used across research, modelling, and evaluation.</p></div>
       <dl class="expertise-list">
         {expertise.map(([term, detail]) => <div class="expertise-row"><dt>{term}</dt><dd>{detail}</dd></div>)}
       </dl>
@@ -58,7 +58,7 @@ const publicResearch = [...publications].sort((a, b) => statusOrder[a.status] - 
 
   <section class="section section-rule" aria-labelledby="cv-publications-title">
     <div class="shell">
-      <div class="section-heading"><h2 id="cv-publications-title">Public Research Record</h2><p>Published, in-press, and author-approved review-stage metadata follow the updated CV and verified public records. Manuscript files, confidential abstracts, anonymous submissions, and drafts remain excluded.</p></div>
+      <div class="section-heading"><h2 id="cv-publications-title">Publications</h2><p>Journal articles, conference papers, preprints, and work currently in peer review.</p></div>
       <div class="publication-list">
         {publicResearch.map((publication, index) => <PublicationCard publication={publication} index={index} />)}
       </div>
