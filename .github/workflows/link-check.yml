@@ -1,0 +1,21 @@
+name: Link Check
+
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - '*.md'
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress './**/*.astro' './**/*.ts' './**/*.md'
+          fail: true

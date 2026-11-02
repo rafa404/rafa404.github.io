@@ -1,0 +1,33 @@
+---
+import ExternalIcon from './ExternalIcon.astro';
+import { researchSystems } from '../data/projects';
+---
+
+<div class="system-index">
+  {researchSystems.map((system, index) => (
+    <article class:list={['system-row', { 'system-row-featured': index === 0 }]}>
+      <div class="system-number mono" aria-hidden="true">{String(index + 1).padStart(2, '0')}</div>
+      <div class="system-copy">
+        <p class="system-focus">{system.focus}</p>
+        <h3>{system.name}</h3>
+        <p>{system.description}</p>
+        <ul aria-label={`${system.name} methods`}>
+          {system.technologies.map((technology) => <li>{technology}</li>)}
+        </ul>
+      </div>
+      <div class="system-action">
+        {system.href ? (
+          <a
+            href={system.href}
+            target={system.href.startsWith('http') ? '_blank' : undefined}
+            rel={system.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+          >
+            {system.linkLabel} {system.href.startsWith('http') && <ExternalIcon />}
+          </a>
+        ) : (
+          <span>Research system</span>
+        )}
+      </div>
+    </article>
+  ))}
+</div>

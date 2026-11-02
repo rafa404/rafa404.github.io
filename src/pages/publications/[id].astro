@@ -1,0 +1,109 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArchitectureGallery from '../../components/ArchitectureGallery.astro';
+import { publications, type Publication } from '../../data/publications';
+import { architectures } from '../../data/architectures';
+import { site } from '../../data/site';
+
+export const getStaticPaths = (() => publications.filter((publication) => !publication.metadataOnly).map((publication) => ({
+  params: { id: publication.id },
+  props: { publication },
+}))) satisfies GetStaticPaths;
+
+interface Props { publication: Publication }
+const { publication } = Astro.props;
+const hasArchitecture = architectures.some((entry) => entry.publicationId === publication.id);
+const highlightedAuthors = publication.authors.map((author) => ({
+  name: author,
+  self: author === 'M. M. Golam Hafiz' || author === 'M.M. Golam Hafiz' || author === 'M. M. Hafiz',
+}));
+const graph = {
+  '@context': 'https://schema.org',
+  '@type': 'ScholarlyArticle',
+  '@id': `${site.url}/publications/${publication.id}/#article`,
+  headline: publication.title,
+  description: publication.abstract,
+  author: publication.authors.map((name) => ({ '@type': 'Person', name })),
+  datePublished: publication.publishedDate ?? (publication.year ? String(publication.year) : undefined),
+  publisher: publication.publisher ? { '@type': 'Organization', name: publication.publisher } : undefined,
+  isPartOf: publication.venue,
+  sameAs: publication.officialUrl,
+  identifier: publication.doi ? `https://doi.org/${publication.doi}` : undefined,
+  keywords: publication.areas.join(', '),
+};
+const article = {
+  ...(publication.publishedDate ? { publishedTime: publication.publishedDate } : {}),
+  authors: publication.authors,
+  tags: publication.areas,
+  section: publication.venue,
+};
+---
+
+<BaseLayout
+  title={`${publication.shortTitle} | M.M. Golam Hafiz`}
+  description={`${publication.status} research on ${publication.areas.join(', ')}. Read the verified abstract, authors, venue, and official links.`}
+  ogType="article"
+  graph={graph}
+  article={article}
+>
+  <header class="page-hero publication-detail-hero">
+    <div class="shell">
+      <div class="detail-meta">
+        <span class:list={['status', publication.status.toLowerCase().replaceAll(' ', '-')]}>{publication.status}</span>
+        {publication.rankingLabel && publication.rankingUrl && (
+          <a class="journal-rank" href={publication.rankingUrl} target="_blank" rel="noopener noreferrer" aria-label={`${publication.rankingLabel}, ${publication.rankingSource}`}>
+            {publication.rankingLabel} <span>· {publication.rankingSource}</span>
+          </a>
+        )}
+        <span>{publication.venue}</span>
+        {publication.year && <span>{publication.year}</span>}
+      </div>
+      <h1>{publication.title}</h1>
+      <p class="authors">
+        {highlightedAuthors.map((author, i) => (
+          <><span class:list={{ 'author-self': author.self }}>{author.name}</span>{i < highlightedAuthors.length - 1 ? ', ' : ''}</>
+        ))}
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="shell detail-grid">
+      <article class="prose">
+        <h2>Abstract</h2>
+        <p>{publication.abstract}</p>
+        <p class="abstract-source">Author-approved source: {publication.abstractSource}.</p>
+      </article>
+      <aside aria-label="Publication details">
+        <dl class="detail-aside">
+          <div class="aside-row"><dt>Status</dt><dd>{publication.status}</dd></div>
+          <div class="aside-row"><dt>Venue</dt><dd>{publication.venue}</dd></div>
+          {publication.publisher && <div class="aside-row"><dt>Publisher</dt><dd>{publication.publisher}</dd></div>}
+          {publication.volume && <div class="aside-row"><dt>Volume</dt><dd>{publication.volume}</dd></div>}
+          {publication.pages && <div class="aside-row"><dt>Pages / article</dt><dd>{publication.pages}</dd></div>}
+          {publication.doi && <div class="aside-row"><dt>DOI</dt><dd class="mono">{publication.doi}</dd></div>}
+          {publication.rankingLabel && <div class="aside-row"><dt>Journal rank</dt><dd>{publication.rankingLabel} ({publication.rankingSource})</dd></div>}
+          <div class="aside-row"><dt>Research areas</dt><dd>{publication.areas.join(', ')}</dd></div>
+        </dl>
+        <div class="detail-links">
+          {publication.officialUrl && <a href={publication.officialUrl} target="_blank" rel="noopener noreferrer">Open official record</a>}
+          {publication.doi && <a href={`https://doi.org/${publication.doi}`} target="_blank" rel="noopener noreferrer">Resolve DOI</a>}
+          {publication.codeUrl && <a href={publication.codeUrl} target="_blank" rel="noopener noreferrer">Open implementation</a>}
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {hasArchitecture && (
+    <section class="section section-rule" aria-labelledby="paper-architecture">
+      <div class="shell">
+        <div class="section-heading">
+          <h2 id="paper-architecture">Original Architecture</h2>
+          <p>Exact embedded source asset from the approved paper; no AI recreation or visual redrawing.</p>
+        </div>
+        <ArchitectureGallery publicationId={publication.id} />
+      </div>
+    </section>
+  )}
+</BaseLayout>

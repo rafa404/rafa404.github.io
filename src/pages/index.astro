@@ -1,0 +1,243 @@
+---
+import { Picture } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResearchTopology from '../components/ResearchTopology.astro';
+import PublicationCard from '../components/PublicationCard.astro';
+import ArchitectureGallery from '../components/ArchitectureGallery.astro';
+import ResearchSystems from '../components/ResearchSystems.astro';
+import portrait from '../assets/profile/mm-golam-hafiz.jpg';
+import { site, researchAreas, experience, education } from '../data/site';
+import { publications } from '../data/publications';
+
+const featured = publications.filter((publication) => publication.featured).slice(0, 4);
+const underReview = publications.filter((publication) => publication.status === 'Under review');
+const counts = {
+  published: publications.filter((publication) => publication.status === 'Published').length,
+  inPress: publications.filter((publication) => publication.status === 'In press').length,
+  underReview: underReview.length,
+  preprint: publications.filter((publication) => publication.status === 'Preprint').length,
+};
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${site.url}/#person`,
+      name: site.name,
+      jobTitle: site.role,
+      affiliation: { '@type': 'Organization', name: site.affiliation },
+      homeLocation: { '@type': 'Place', name: site.location },
+      url: site.url,
+      sameAs: [site.github, site.linkedin, site.scholar],
+      knowsAbout: researchAreas.map((area) => area.title),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${site.url}/#website`,
+      name: `${site.name} Research`,
+      url: site.url,
+      author: { '@id': `${site.url}/#person` },
+    },
+    {
+      '@type': 'ProfilePage',
+      '@id': `${site.url}/#profile`,
+      name: `${site.name} — Academic Research Portfolio`,
+      url: site.url,
+      mainEntity: { '@id': `${site.url}/#person` },
+      isPartOf: { '@id': `${site.url}/#website` },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="M.M. Golam Hafiz | Trustworthy Medical AI Researcher"
+  description="Research portfolio of M.M. Golam Hafiz: trustworthy medical AI, uncertainty-aware imaging, personalized federated learning, and cross-site robustness."
+  ogType="profile"
+  graph={graph}
+>
+  <section class="home-hero" aria-labelledby="home-title">
+    <div class="shell home-hero-grid">
+      <div class="home-hero-copy" data-reveal>
+        <p class="hero-kicker">AI/ML researcher · Medical imaging · Federated learning</p>
+        <h1 id="home-title">Trustworthy medical AI, tested where uncertainty matters.</h1>
+        <p class="hero-statement">{site.statement}</p>
+        <div class="hero-links">
+          <a class="button button-dark" href="#publications">Read the research record</a>
+          <a class="button button-quiet" href={site.scholar} target="_blank" rel="noopener noreferrer">Google Scholar</a>
+        </div>
+        <p class="hero-affiliation"><span>{site.affiliation}</span><span>{site.location}</span></p>
+      </div>
+
+      <figure class="home-portrait" data-reveal>
+        <Picture
+          src={portrait}
+          formats={['avif']}
+          fallbackFormat="webp"
+          widths={[420, 620, 840]}
+          sizes="(max-width: 820px) 92vw, 34vw"
+          alt="M.M. Golam Hafiz standing outdoors in formal attire."
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+    </div>
+
+    <div class="shell research-counts" aria-label="Research output counts" data-reveal>
+      <div><strong>{counts.published}</strong><span>Published</span><small>Publisher-indexed records</small></div>
+      <div><strong>{counts.inPress}</strong><span>In press</span><small>Proceedings in production</small></div>
+      <div><strong>{counts.underReview}</strong><span>Under review</span><small>Metadata approved for display</small></div>
+      <div><strong>{counts.preprint}</strong><span>Public preprint</span><small>Verified archive record</small></div>
+    </div>
+  </section>
+
+  <section id="research" class="section home-section" aria-labelledby="research-title">
+    <div class="shell">
+      <div class="section-intro" data-reveal>
+        <p class="section-marker mono">01 Research</p>
+        <div>
+          <h2 id="research-title">Reliable learning across sites, clients, and clinical uncertainty.</h2>
+          <p>Research questions begin with deployment failure: distribution shift, non-IID data, uncertain boundaries, and models that need evidence before trust.</p>
+        </div>
+      </div>
+
+      <div class="area-grid home-area-grid" data-reveal>
+        {researchAreas.map((area, index) => (
+          <article class="area-item">
+            <span class="area-number mono">0{index + 1}</span>
+            <h3>{area.title}</h3>
+            <p>{area.description}</p>
+          </article>
+        ))}
+      </div>
+      <div data-reveal><ResearchTopology /></div>
+    </div>
+  </section>
+
+  <section id="publications" class="section home-section section-tint" aria-labelledby="publications-title">
+    <div class="shell">
+      <div class="section-intro" data-reveal>
+        <p class="section-marker mono">02 Publications</p>
+        <div>
+          <h2 id="publications-title">From published evidence to active peer review.</h2>
+          <p>Exact author order and status are retained. Review-stage work is shown at metadata level only—no private abstract, manuscript, or reviewer material.</p>
+        </div>
+      </div>
+
+      <div class="publication-list home-featured-publications" data-reveal>
+        {featured.map((publication, index) => <PublicationCard publication={publication} index={index} prominent />)}
+      </div>
+
+      <div class="review-pipeline" data-reveal>
+        <div class="review-pipeline-heading">
+          <h3>In peer review</h3>
+          <p>Author-approved metadata from the updated CV.</p>
+        </div>
+        <div class="review-grid">
+          {underReview.map((publication) => (
+            <article class="review-card">
+              <div class="review-card-meta"><span class="status under-review">Under review</span><span>{publication.venue}</span></div>
+              <h4>{publication.title}</h4>
+              <p class="authors">
+                {publication.authors.map((author, index) => (
+                  <><span class:list={{ 'author-self': author === 'M.M. Golam Hafiz' }}>{author}</span>{index < publication.authors.length - 1 ? ', ' : ''}</>
+                ))}
+              </p>
+              <p class="publication-areas">{publication.areas.join(' · ')}</p>
+              <span class="metadata-note">Manuscript details withheld during review</span>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <a class="all-link" href="/publications/">Browse all {publications.length} research records</a>
+    </div>
+  </section>
+
+  <section id="systems" class="section home-section" aria-labelledby="systems-title">
+    <div class="shell">
+      <div class="section-intro" data-reveal>
+        <p class="section-marker mono">03 Systems & figures</p>
+        <div>
+          <h2 id="systems-title">Architectures built to expose how the evidence moves.</h2>
+          <p>Named systems connect research claims to implementations. Original PowerPoint and draw.io figures remain pixel-faithful and open at full size.</p>
+        </div>
+      </div>
+      <div data-reveal><ResearchSystems /></div>
+
+      <div class="subsection-heading" data-reveal>
+        <h3>Original architecture plates</h3>
+        <a href="/research/">Open the architecture index</a>
+      </div>
+      <div class="home-architecture" data-reveal><ArchitectureGallery /></div>
+    </div>
+  </section>
+
+  <section id="experience" class="section home-section section-tint" aria-labelledby="experience-title">
+    <div class="shell">
+      <div class="section-intro" data-reveal>
+        <p class="section-marker mono">04 Experience</p>
+        <div>
+          <h2 id="experience-title">Research discipline, carried into applied systems.</h2>
+          <p>Academic research, model evaluation, and production web engineering are kept in one evidence-led professional record.</p>
+        </div>
+      </div>
+
+      <div class="experience-layout" data-reveal>
+        <div class="experience-column">
+          <h3>Appointments</h3>
+          {experience.map((item) => (
+            <article class="experience-card">
+              <span class="mono">{item.period}</span>
+              <h4>{item.role}</h4>
+              <strong>{item.organization}</strong>
+              <p>{item.detail}</p>
+            </article>
+          ))}
+        </div>
+        <div class="experience-column education-column">
+          <h3>Education</h3>
+          {education.map((item) => (
+            <article class="experience-card">
+              <span class="mono">{item.period}</span>
+              <h4>{item.degree}</h4>
+              <strong>{item.institution}</strong>
+              <p>{item.result}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section home-contact" aria-labelledby="cv-title">
+    <div class="shell home-contact-panel" data-reveal>
+      <p class="section-marker mono">05 Research record</p>
+      <h2 id="cv-title">A complete academic record, without exposing confidential manuscripts.</h2>
+      <p>Review verified experience, education, technical expertise, publication status, and public research outputs.</p>
+      <div class="hero-links">
+        <a class="button button-light" href="/cv/">Open professional CV</a>
+        <a class="button button-outline-light" href={site.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="button button-outline-light" href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealTargets = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('motion-ready');
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      revealTargets.forEach((target) => revealObserver.observe(target));
+    } else {
+      revealTargets.forEach((target) => target.classList.add('is-revealed'));
+    }
+  </script>
+</BaseLayout>

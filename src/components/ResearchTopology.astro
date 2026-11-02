@@ -1,0 +1,145 @@
+---
+const branches = [
+  {
+    key: 'medical',
+    number: '01',
+    title: 'Medical imaging',
+    short: 'Imaging',
+    scope: 'Histopathology · MRI · Endoscopy',
+    description: 'Images become evidence through segmentation, classification, and interpretable clinical evaluation.',
+    outputs: [
+      { title: 'Swin-MSEG-Pro', venue: 'Array', href: '/publications/swin-mseg-pro-array/' },
+      { title: 'Fed-CCG', venue: 'ICPR', href: '/publications/2026-icpr-fed-ccg-osteosarcoma/' },
+      { title: 'Brain tumor MRI', venue: 'CONMEDIA', href: '/publications/2025-conmedia-brain-tumor-mri/' },
+      { title: 'GesturePolypSeg', venue: 'ICCA', href: '/publications/2026-icca-gesturepolypseg/' },
+    ],
+  },
+  {
+    key: 'federated',
+    number: '02',
+    title: 'Federated learning',
+    short: 'Federated',
+    scope: 'Personalization · Client graphs · Privacy',
+    description: 'Client relationships and local adaptation shape models that learn across institutions without centralizing data.',
+    outputs: [
+      { title: 'FedPAXA-Net', venue: 'Intelligence-Based Medicine', href: '/publications/2026-elsevier-fedpaxa-net/' },
+      { title: 'Fed-CCG', venue: 'ICPR', href: '/publications/2026-icpr-fed-ccg-osteosarcoma/' },
+      { title: 'FedHisto-PAST', venue: 'arXiv', href: '/publications/fedhisto-past-arxiv-2026/' },
+      { title: 'Privacy-aware FL', venue: 'DICTA', href: '/publications/2026-dicta-privacy-fl-histopathology/' },
+    ],
+  },
+  {
+    key: 'uncertainty',
+    number: '03',
+    title: 'Uncertainty and verification',
+    short: 'Uncertainty',
+    scope: 'Boundary confidence · Evidence routing',
+    description: 'Uncertainty is used as a decision signal: where boundaries fail, when evidence is weak, and what should be verified.',
+    outputs: [
+      { title: 'Swin-MSEG-Pro', venue: 'Array', href: '/publications/swin-mseg-pro-array/' },
+      { title: 'GesturePolypSeg', venue: 'ICCA', href: '/publications/2026-icca-gesturepolypseg/' },
+    ],
+  },
+  {
+    key: 'robustness',
+    number: '04',
+    title: 'Cross-site robustness',
+    short: 'Cross-site',
+    scope: 'Non-IID clients · Stain shift · Sensor shift',
+    description: 'Robustness is tested where deployment changes the data: hospitals, staining protocols, clients, and sensor locations.',
+    outputs: [
+      { title: 'FedHisto-PAST', venue: 'arXiv', href: '/publications/fedhisto-past-arxiv-2026/' },
+      { title: 'FedPAXA-Net', venue: 'Intelligence-Based Medicine', href: '/publications/2026-elsevier-fedpaxa-net/' },
+      { title: 'DiffusionRef-IMU', venue: 'Under review', href: '/publications/?status=under-review' },
+      { title: 'Privacy-aware FL', venue: 'DICTA', href: '/publications/2026-dicta-privacy-fl-histopathology/' },
+    ],
+  },
+];
+---
+
+<section class="topology" aria-labelledby="topology-title">
+  <div class="topology-heading">
+    <div>
+      <h2 id="topology-title">Research constellation</h2>
+      <p>Trace a research question to the public evidence it produced.</p>
+    </div>
+    <p class="topology-instruction"><span class="mono">Interactive map</span> Select, hover, or focus a node.</p>
+  </div>
+
+  <div class="topology-workbench" data-topology-map data-active="medical">
+    <div class="topology-canvas" aria-label="Interactive map of research areas">
+      <svg class="topology-routes" viewBox="0 0 560 430" aria-hidden="true">
+        <circle class="topology-orbit orbit-inner" cx="280" cy="215" r="103" />
+        <circle class="topology-orbit orbit-outer" cx="280" cy="215" r="168" />
+        <path class="topology-route" data-route="medical" pathLength="1" d="M248 184 C213 143 173 111 116 82" />
+        <path class="topology-route" data-route="federated" pathLength="1" d="M312 184 C348 142 390 108 446 79" />
+        <path class="topology-route" data-route="uncertainty" pathLength="1" d="M316 244 C353 277 394 310 450 343" />
+        <path class="topology-route" data-route="robustness" pathLength="1" d="M244 244 C207 280 168 313 111 345" />
+        <path class="topology-cross-route" d="M116 82 C235 26 329 26 446 79" />
+        <path class="topology-cross-route" d="M111 345 C230 405 333 405 450 343" />
+      </svg>
+
+      <div class="topology-core" aria-hidden="true">
+        <span>Research</span>
+        <strong>agenda</strong>
+      </div>
+
+      {branches.map((branch) => (
+        <button
+          type="button"
+          class={`topology-node topology-node-${branch.key}`}
+          data-topology-choice={branch.key}
+          aria-pressed={branch.key === 'medical' ? 'true' : 'false'}
+          aria-controls={`topology-detail-${branch.key}`}
+        >
+          <span class="topology-node-number mono">{branch.number}</span>
+          <span class="topology-node-copy"><strong>{branch.short}</strong><small>{branch.scope}</small></span>
+        </button>
+      ))}
+    </div>
+
+    <aside class="topology-inspector" aria-label="Selected research branch" aria-live="polite">
+      {branches.map((branch) => (
+        <div id={`topology-detail-${branch.key}`} data-topology-detail={branch.key} hidden={branch.key !== 'medical'}>
+          <p class="topology-detail-number mono">Branch {branch.number}</p>
+          <h3>{branch.title}</h3>
+          <p class="topology-detail-scope">{branch.scope}</p>
+          <p class="topology-detail-description">{branch.description}</p>
+          <p class="topology-output-label mono">Connected evidence</p>
+          <ul class="topology-output-list">
+            {branch.outputs.map((output) => (
+              <li><a href={output.href}><strong>{output.title}</strong><span>{output.venue}</span></a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </aside>
+  </div>
+
+  <script>
+    const maps = document.querySelectorAll<HTMLElement>('[data-topology-map]');
+
+    maps.forEach((map) => {
+      const choices = Array.from(map.querySelectorAll<HTMLButtonElement>('[data-topology-choice]'));
+      const details = Array.from(map.querySelectorAll<HTMLElement>('[data-topology-detail]'));
+      let selected = map.dataset.active ?? 'medical';
+
+      const activate = (key: string, persist = false) => {
+        map.dataset.active = key;
+        choices.forEach((choice) => choice.setAttribute('aria-pressed', choice.dataset.topologyChoice === key ? 'true' : 'false'));
+        details.forEach((detail) => { detail.hidden = detail.dataset.topologyDetail !== key; });
+        if (persist) selected = key;
+      };
+
+      choices.forEach((choice) => {
+        const key = choice.dataset.topologyChoice;
+        if (!key) return;
+        choice.addEventListener('click', () => activate(key, true));
+        choice.addEventListener('pointerenter', () => activate(key));
+        choice.addEventListener('pointerleave', () => activate(selected));
+        choice.addEventListener('focus', () => activate(key));
+        choice.addEventListener('blur', () => activate(selected));
+      });
+    });
+  </script>
+</section>

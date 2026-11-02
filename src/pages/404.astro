@@ -1,0 +1,19 @@
+---
+import FuzzyRedirect from '@jdevalk/astro-seo-graph/FuzzyRedirect.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found | M.M. Golam Hafiz"
+  description="The requested page is not part of the M.M. Golam Hafiz academic research portfolio."
+  noindex
+>
+  <section class="page-hero">
+    <div class="shell">
+      <p class="hero-kicker mono">404</p>
+      <h1>Page Not Found</h1>
+      <p>The address may have changed or the page may not exist. <FuzzyRedirect suggestionText="Did you mean" /></p>
+      <p><a class="text-link" href="/">Return to the homepage</a></p>
+    </div>
+  </section>
+</BaseLayout>

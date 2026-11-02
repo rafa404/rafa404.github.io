@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://rafa404.github.io/sitemap-index.xml
+Content-Signal: ai-train=no, search=yes, ai-input=yes

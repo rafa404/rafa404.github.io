@@ -1,0 +1,69 @@
+---
+import { Picture } from 'astro:assets';
+import ExternalIcon from './ExternalIcon.astro';
+import { site } from '../data/site';
+import headshot from '../assets/profile/mm-golam-hafiz-avatar.png';
+
+const path = Astro.url.pathname;
+const links = [
+  { href: path === '/' ? '#research' : '/#research', label: 'Research', section: 'research' },
+  { href: path === '/' ? '#publications' : '/#publications', label: 'Publications', section: 'publications' },
+  { href: path === '/' ? '#systems' : '/#systems', label: 'Systems', section: 'systems' },
+  { href: path === '/' ? '#experience' : '/#experience', label: 'Experience', section: 'experience' },
+];
+---
+
+<header class="site-header">
+  <div class="shell header-inner">
+    <a class="wordmark" href="/">
+      <span class="wordmark-avatar" aria-hidden="true">
+        <Picture
+          src={headshot}
+          formats={['avif']}
+          fallbackFormat="webp"
+          widths={[48, 72, 96]}
+          sizes="42px"
+          alt=""
+          loading="eager"
+        />
+      </span>
+      <span class="wordmark-copy"><strong>{site.name}</strong><small>Research portfolio</small></span>
+      <span class="sr-only">, home</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <ul class="nav-list">
+        {links.map((link) => (
+          <li><a href={link.href} data-section-link={link.section} aria-current={path.startsWith(`/${link.section}`) ? 'page' : undefined}>{link.label}</a></li>
+        ))}
+        <li><a href="/cv/" aria-current={path === '/cv/' ? 'page' : undefined}>CV</a></li>
+        <li>
+          <a class="nav-external" href={site.scholar} target="_blank" rel="noopener noreferrer">
+            Scholar <ExternalIcon />
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+{path === '/' && (
+  <script>
+    const sectionLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-section-link]'));
+    const sections = sectionLinks
+      .map((link) => document.getElementById(link.dataset.sectionLink ?? ''))
+      .filter((section): section is HTMLElement => section instanceof HTMLElement);
+
+    const observer = new IntersectionObserver((entries) => {
+      const active = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!active) return;
+      sectionLinks.forEach((link) => {
+        if (link.dataset.sectionLink === active.target.id) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-18% 0px -68% 0px', threshold: [0, 0.15, 0.4] });
+
+    sections.forEach((section) => observer.observe(section));
+  </script>
+)}

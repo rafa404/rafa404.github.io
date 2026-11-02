@@ -1,0 +1,101 @@
+---
+import { Picture } from 'astro:assets';
+import { architectures } from '../data/architectures';
+
+interface Props {
+  limit?: number;
+  publicationId?: string;
+}
+
+const { limit, publicationId } = Astro.props;
+let entries = publicationId ? architectures.filter((entry) => entry.publicationId === publicationId) : [...architectures];
+if (limit) entries = entries.slice(0, limit);
+---
+
+<div class:list={['architecture-gallery', { single: entries.length === 1 }]}>
+  {entries.map((entry) => (
+    <figure class="architecture-plate">
+      <div class="plate-image">
+        <button
+          class="figure-expand"
+          type="button"
+          data-dialog-open={`architecture-${entry.index}`}
+          aria-haspopup="dialog"
+          aria-controls={`architecture-${entry.index}`}
+          aria-label={`Open figure: ${entry.title}`}
+        >
+          <Picture
+            src={entry.image}
+            formats={['avif']}
+            fallbackFormat="webp"
+            widths={[640, 960, 1440]}
+            sizes="(max-width: 760px) 92vw, (max-width: 1200px) 76vw, 920px"
+            alt={entry.alt}
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="figure-expand-label">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" /></svg>
+            Open figure
+          </span>
+        </button>
+      </div>
+      <figcaption>
+        <span class="plate-index mono">Plate {entry.index}</span>
+        <strong>{entry.title}</strong>
+        <span>{entry.caption}</span>
+        <span class="plate-source">{entry.sourceLabel} · exact embedded source asset</span>
+      </figcaption>
+      <dialog class="figure-dialog" id={`architecture-${entry.index}`} aria-labelledby={`architecture-title-${entry.index}`}>
+        <div class="figure-dialog-inner">
+          <div class="figure-dialog-header">
+            <div>
+              <span class="plate-index mono">Plate {entry.index}</span>
+              <h3 id={`architecture-title-${entry.index}`}>{entry.title}</h3>
+            </div>
+            <button class="dialog-close" type="button" data-dialog-close aria-label={`Close ${entry.title}`}>
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19" /></svg>
+            </button>
+          </div>
+          <div class="figure-dialog-image">
+            <Picture
+              src={entry.image}
+              formats={['avif']}
+              fallbackFormat="webp"
+              widths={[960, 1440, 1920, 2400]}
+              sizes="94vw"
+              alt={entry.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <p>{entry.caption} <span>{entry.sourceLabel}.</span></p>
+        </div>
+      </dialog>
+    </figure>
+  ))}
+</div>
+
+<script>
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const opener = target.closest<HTMLElement>('[data-dialog-open]');
+    if (opener) {
+      const dialogId = opener.dataset.dialogOpen;
+      const dialog = dialogId ? document.getElementById(dialogId) : null;
+      if (dialog instanceof HTMLDialogElement) dialog.showModal();
+      return;
+    }
+
+    const closer = target.closest('[data-dialog-close]');
+    if (closer) {
+      const dialog = closer.closest('dialog');
+      if (dialog instanceof HTMLDialogElement) dialog.close();
+      return;
+    }
+
+    if (target instanceof HTMLDialogElement) target.close();
+  });
+</script>

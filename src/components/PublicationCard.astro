@@ -1,0 +1,46 @@
+---
+import type { Publication } from '../data/publications';
+
+interface Props {
+  publication: Publication;
+  index?: number;
+  prominent?: boolean;
+}
+
+const { publication, index, prominent = false } = Astro.props;
+const authors = publication.authors;
+---
+
+<article class:list={['publication-card', { prominent }]}>
+  <div class="publication-index mono" aria-hidden="true">{String((index ?? 0) + 1).padStart(2, '0')}</div>
+  <div class="publication-main">
+    <div class="publication-meta">
+      <span class:list={['status', publication.status.toLowerCase().replaceAll(' ', '-')]}>{publication.status}</span>
+      {publication.rankingLabel && publication.rankingUrl && (
+        <a class="journal-rank" href={publication.rankingUrl} target="_blank" rel="noopener noreferrer" aria-label={`${publication.rankingLabel}, ${publication.rankingSource}`}>
+          {publication.rankingLabel} <span>· {publication.rankingSource}</span>
+        </a>
+      )}
+      <span>{publication.venue}</span>
+      {publication.year && <span>{publication.year}</span>}
+    </div>
+    <h3>
+      {publication.metadataOnly ? publication.title : <a href={`/publications/${publication.id}/`}>{publication.title}</a>}
+    </h3>
+    <p class="authors">
+      {authors.map((author, i) => (
+        <><span class:list={{ 'author-self': author === 'M. M. Golam Hafiz' || author === 'M.M. Golam Hafiz' || author === 'M. M. Hafiz' }}>{author}</span>{i < authors.length - 1 ? ', ' : ''}</>
+      ))}
+    </p>
+    <p class="publication-areas">{publication.areas.join(' · ')}</p>
+  </div>
+  <div class="publication-actions">
+    {publication.metadataOnly ? (
+      <span class="metadata-note">Metadata only during peer review</span>
+    ) : (
+      <a href={`/publications/${publication.id}/`}>Read details</a>
+    )}
+    {publication.doi && <a href={`https://doi.org/${publication.doi}`} target="_blank" rel="noopener noreferrer">DOI</a>}
+    {publication.codeUrl && <a href={publication.codeUrl} target="_blank" rel="noopener noreferrer">Code</a>}
+  </div>
+</article>

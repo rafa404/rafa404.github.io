@@ -1,0 +1,221 @@
+export type PublicationStatus = 'Published' | 'In press' | 'Preprint' | 'Accepted' | 'Under review';
+
+export interface Publication {
+  id: string;
+  shortTitle: string;
+  title: string;
+  authors: string[];
+  status: PublicationStatus;
+  year?: number;
+  publishedDate?: string;
+  venue: string;
+  publisher?: string;
+  volume?: string;
+  pages?: string;
+  doi?: string;
+  officialUrl?: string;
+  codeUrl?: string;
+  abstract?: string;
+  abstractSource?: string;
+  areas: string[];
+  rankingLabel?: string;
+  rankingSource?: string;
+  rankingUrl?: string;
+  featured: boolean;
+  metadataOnly?: boolean;
+}
+
+export const publications: Publication[] = [
+  {
+    id: 'swin-mseg-pro-array',
+    shortTitle: 'Swin-MSEG-Pro',
+    title: 'Swin-MSEG-Pro: Uncertainty-aware boundary-focused swin transformer with deep supervision for reliable gastrointestinal polyp segmentation',
+    authors: ['Muhammad Muhtasim Shahriar', 'M.M. Golam Hafiz', 'M.F. Mridha', 'Md. Rakibul Islam'],
+    status: 'Published',
+    year: 2026,
+    publishedDate: '2026-12',
+    venue: 'Array',
+    publisher: 'Elsevier',
+    volume: '32',
+    pages: '101265',
+    doi: '10.1016/j.array.2026.101265',
+    officialUrl: 'https://www.sciencedirect.com/science/article/pii/S2590005626005886',
+    abstract: 'Automatic segmentation of gastrointestinal polyps from colonoscopy images is clinically important because computer-aided systems must identify suspicious lesions and delineate their extent under challenging visual conditions. Variations in polyp size, shape, texture, and contrast, together with weak boundaries, illumination changes, artefacts, and cross-dataset distribution shift, complicate this task. This study introduces Swin-MSEG-Pro, a reliability-focused segmentation framework that integrates a SwinV2-based encoder with multi-scale feature learning, deep supervision, evidential uncertainty learning, and boundary-focused supervision. The model was developed using Kvasir-SEG with 800 training, 100 validation, and 100 held-out test images; ETIS-LaribPolypDB and CVC-ClinicDB were reserved exclusively for external testing. Across three independent random seeds, Swin-MSEG-Pro achieved a validation Dice of 0.9289 ± 0.0064 and mean per-image Dice scores of 0.9153 ± 0.0024, 0.7174 ± 0.0016, and 0.8527 ± 0.0020 on the held-out Kvasir-SEG, ETIS-LaribPolypDB, and CVC-ClinicDB test sets, respectively. Evidential uncertainty remained informative for selective risk ranking, with TTA object-level RC-AURC values of 0.0487 ± 0.0045, 0.1027 ± 0.0195, and 0.0769 ± 0.0034 on the corresponding datasets. Component-wise ablation showed the clearest degradation from removing the boundary mechanism on ETIS-LaribPolypDB, where Dice decreased by 0.0188. Swin-MSEG-Pro therefore provides reproducible uncertainty-aware polyp segmentation and useful risk information under cross-dataset shift, although performance declines on more strongly shifted external data.',
+    abstractSource: 'Publisher abstract',
+    areas: ['Polyp segmentation', 'Evidential uncertainty', 'Reliability-aware learning'],
+    rankingLabel: 'Q1',
+    rankingSource: 'SJR 2025',
+    rankingUrl: 'https://www.scimagojr.com/journalsearch.php?q=21101080486&tip=sid',
+    featured: true,
+  },
+  {
+    id: '2026-icpr-fed-ccg-osteosarcoma',
+    shortTitle: 'Fed-CCG Osteosarcoma',
+    title: 'Federated Deep Learning with Client Communication Graphs for Osteosarcoma Histopathology Image Classification',
+    authors: ['M. M. Golam Hafiz', 'Muhammad Muhtasim Shahriar', 'Md. Kishor Morol', 'Sadek Al Prince', 'Safia Akter Simi', 'Dip Nandi', 'Md. Abdullah Al Jubair'],
+    status: 'Published',
+    year: 2026,
+    publishedDate: '2026-08-03',
+    venue: '28th International Conference on Pattern Recognition (ICPR 2026), Main Track',
+    publisher: 'Springer Nature',
+    volume: 'LNCS 16823',
+    pages: '155–169',
+    doi: '10.1007/978-3-032-31920-3_11',
+    officialUrl: 'https://link.springer.com/chapter/10.1007/978-3-032-31920-3_11',
+    codeUrl: 'https://github.com/rafa404/fed-ccg-osteosarcoma',
+    abstract: 'Federated learning (FL) enables privacy-preserving training of medical image classifiers across institutions, but performance can degrade when client data are non-IID (Independent and Identically Distributed). This study proposes a combination of Federated Learning (FL) and Graph Neural Networks (GNN), a client-communication-graph–guided Federated Learning framework for three-class osteosarcoma histopathology tile classification (Non-Tumor, Non-Viable Tumor, and Viable Tumor). Three simulated clients train locally on disjoint partitions of the TCIA Osteosarcoma-Tumor-Assessment dataset (1,472 hematoxylin-and-eosin (H&E) stained image tiles), while validation and testing remain global. Inter-client similarity is estimated from local class-distribution features and used to construct a communication graph; a lightweight GraphSAGE module computes aggregation weights for graph-conditioned federated averaging. We benchmark multiple architectures under consistent preprocessing, augmentation, and early-stopped training, including VGG-19, DenseNet-121/161, ResNet-101, EfficientNet-B7, and a transformer baseline, Vision Transformer (ViT-B/16). EfficientNet-B7 achieved the best overall performance, reaching 93.94% test accuracy, 0.9394 weighted F1-score, and the lowest validation loss (0.1959). ResNet-101 was found to be closely competitive, and its test accuracy was 93.43%. ViT-B/16 obtained 82.83% accuracy, which means relatively poor performance in the analyzed data and training conditions. Overall, the results support graph-aware FL with strong CNN backbones for accurate, privacy-preserving osteosarcoma classification.',
+    abstractSource: 'Publisher abstract, checked against the author-accepted manuscript',
+    areas: ['Federated learning', 'Graph neural networks', 'Digital pathology'],
+    featured: true,
+  },
+  {
+    id: '2026-elsevier-fedpaxa-net',
+    shortTitle: 'FedPAXA-Net',
+    title: 'FedPAXA-Net: Prototype-aligned personalized federated learning for multi-client gastrointestinal endoscopy image classification',
+    authors: ['Muhammad Muhtasim Shahriar', 'M. M. Golam Hafiz', 'Md. Rakibul Islam', 'M. F. Mridha'],
+    status: 'Published',
+    year: 2026,
+    publishedDate: '2026-09-30',
+    venue: 'Intelligence-Based Medicine',
+    publisher: 'Elsevier',
+    volume: '16',
+    pages: '100472',
+    doi: '10.1016/j.ibmed.2026.100472',
+    officialUrl: 'https://doi.org/10.1016/j.ibmed.2026.100472',
+    abstract: 'Federated learning enables collaborative medical-image modelling without centralising raw data, but client heterogeneity and unstable prototype construction can limit personalised learning. This study presents FedPAXA-Net, a prototype-aligned personalised federated learning framework for eight-class gastrointestinal endoscopy image classification across three dataset-derived clients. The final configuration combines an ImageNet-pretrained ConvNeXt-Base backbone, lightweight client-local residual adapters, robust class prototypes estimated using a 10% coordinate-wise trimmed mean, training-only reliability weighting based on class support, within-class dispersion, and temporal stability, and soft-target cosine prototype alignment. Validation-only component analysis supported removal of ProtoAttention and squeeze-and-excitation recalibration from the final architecture. The data partition was additionally audited using exact hashing, repeated source and sequence identifiers, perceptual-hash screening, and manual review, yielding a final partition of 14,909 images comprising 12,509 training, 1,200 validation, and 1,200 held-out test images. An earlier controlled same-backbone held-out test benchmark showed that Ditto remained the strongest comparative baseline, motivating architectural simplification rather than a superiority claim for the original full configuration. After the revised architecture and audited partition were frozen, five-seed validation achieved a macro-F1 of 0.971079 ± 0.001115 with a 95% Student-t confidence interval of [0.969694, 0.972464]. Following completion of validation-based model selection, the five frozen checkpoints were evaluated once on the untouched held-out test set, yielding a macro-F1 of 0.970665 ± 0.000385 with a 95% confidence interval of [0.970187, 0.971142] and a mean worst-client F1 of 0.964961. The results support a simpler, auditable prototype-aligned federated design while highlighting the need for matched final-protocol baselines and independent institutional validation.',
+    abstractSource: 'Publisher abstract',
+    areas: ['Personalized federated learning', 'Gastrointestinal endoscopy', 'Prototype learning'],
+    featured: true,
+  },
+  {
+    id: '2025-conmedia-brain-tumor-mri',
+    shortTitle: 'Brain Tumor MRI Classification',
+    title: 'Comparative Analysis of Deep Learning Architectures for Brain Tumor Classification Using MRI Images',
+    authors: ['Muhammad Muhtasim Shahriar', 'M. M. Golam Hafiz', 'Riadul Islam Rabbi', 'Tze Hui Liew', 'Fatema Mostafa Tarin', 'Ekramul Haque Tusher'],
+    status: 'Published',
+    year: 2025,
+    publishedDate: '2025-10-14',
+    venue: '8th International Conference on New Media Studies (CONMEDIA 2025)',
+    publisher: 'IEEE',
+    pages: '35–40',
+    doi: '10.1109/CONMEDIA67140.2025.11290384',
+    officialUrl: 'https://ieeexplore.ieee.org/document/11290384',
+    codeUrl: 'https://github.com/rafa404/Brain-Tumor-MRI-Image-Classification-Python-Code',
+    abstract: 'Accurate detection and classification of brain tumors by Magnetic Resonance Imaging is crucial for early diagnosis and treatment planning but is still challenging due to variability in tumor heterogeneity and diagnostic subjectivity. This work offers a comparative analysis of Convolutional Neural Network-based architectures such as VGG16/19, ResNet50/152, DenseNet121/201, InceptionV3, EfficientNet-B4/B7, and a Custom CNN-7. Using a Kaggle MRI dataset across four tumor classes (glioma, meningioma, pituitary, and no tumor), DenseNet121 and InceptionV3 achieved the best results with 99.85% accuracy. DenseNet201 (99.31%) and ResNet152 (99.08%) closely followed. These models consistently demonstrated ≈ 0.99 precision, recall, and F1-score, outperforming traditional CNN baselines. This study highlights the balance between accuracy and computational efficiency across multiple architectures, underscoring the potential of CNNs and transfer learning for clinical applications in brain tumor diagnosis.',
+    abstractSource: 'IEEE-indexed abstract, verified through the DOI record',
+    areas: ['Medical image classification', 'MRI', 'Transfer learning'],
+    featured: true,
+  },
+  {
+    id: '2026-ecct-kidney-mri-ckd',
+    shortTitle: 'Kidney MRI & CKD Detection',
+    title: 'End-to-End Deep Learning Framework for Kidney MRI Segmentation and Explainable CKD Detection Using Transfer Learning',
+    authors: ['Md. Owafeeuzzaman Patwary', 'Apurbo Biswas', 'Muhammad Muhtasim Shahriar', 'M. M. Golam Hafiz', 'Morzia Momo', 'Kazi Tanvir', 'Md. Reazul Islam', 'Dipta Gomes'],
+    status: 'In press',
+    year: 2026,
+    venue: 'ECCT 2026',
+    officialUrl: 'https://confecct.com/',
+    abstract: 'Chronic Kidney Disease (CKD) is a major global health concern, affecting over 850 million people worldwide. Early-stage detection remains challenging due to the largely asymptomatic nature of the disease and the limitations of conventional diagnostic methods such as serum creatinine, estimated glomerular filtration rate (eGFR), and biopsy. This study proposes an end-to-end deep learning framework for automated CKD detection from non-invasive kidney MRI by optimizing kidney segmentation and enhancing interpretability. Using CHAOS T1 in-phase abdominal MRI data comprising 1,109 usable slice–mask pairs, the data were preprocessed through slice-wise intensity normalization, resized to 352 × 352 pixels, and augmented in real time. Three transfer-learning-based architectures, namely ResNet34 U-Net, ResNet34 U-Net++, and EfficientNet-B3 DeepLabV3+, were evaluated for kidney segmentation. The models were trained using a compound Dice–Focal loss to address class imbalance, AdamW optimization, and Grad-CAM for explainable visualization. Among the evaluated models, ResNet34 U-Net++ achieved the best performance, with a Dice score of 0.8218, IoU of 0.6975, precision of 0.8112, recall of 0.8328, and accuracy of 0.9770 on a held-out test set. The proposed approach demonstrated strong segmentation accuracy, computational efficiency, and clinical feasibility. Overall, this work improves generalizability across MRI protocols, mitigates black-box concerns through explainability, and lays the foundation for real-time, edge-based CKD screening to reduce healthcare burdens through early intervention.',
+    abstractSource: 'Accepted manuscript',
+    areas: ['Kidney MRI', 'Medical image segmentation', 'Explainable AI'],
+    featured: false,
+  },
+  {
+    id: 'fedhisto-past-arxiv-2026',
+    shortTitle: 'FedHisto-PAST',
+    title: 'FedHisto-PAST: Parameter-Efficient Stain-Aware Federated Learning for Cross-Site Lung Histopathology Classification',
+    authors: ['Muhammad Muhtasim Shahriar', 'M. M. Golam Hafiz', 'Saad Aloteibi', 'Mohammad Ali Moni'],
+    status: 'Preprint',
+    year: 2026,
+    publishedDate: '2026-09-25',
+    venue: 'arXiv',
+    officialUrl: 'https://arxiv.org/abs/2609.31150',
+    abstract: 'Cross-site lung histopathology classification must account for stain variation, non-IID client data, missing classes, and the cost of adapting large pathology encoders. This study evaluates FedHisto-PAST v2 for three-way classification of adenocarcinoma (ACA), Normal, and squamous cell carcinoma (SCC). FedHisto-PAST v2 combines a frozen HIBOU-B foundation model with parameter-efficient adaptation, stain-conditioned paired-view prediction and feature consistency, reliability-aware prototype learning, and adaptive federated aggregation. Experiments used a five-client, non-IID, raw-data-local simulation with fixed internal evaluation, client-level analysis, component ablations, communication accounting, and a development-influenced exploratory LungHist700 cohort. All principal methods achieved near-ceiling internal performance, which limited discrimination on the fixed split. On LungHist700, FedHisto-PAST v2 achieved a Macro-F1 of 0.728560 and a balanced accuracy of 0.730454. Higher recognition of Normal and SCC was accompanied by lower ACA recall, and calibration remained imperfect. Prediction-level consistency was the only component with a clearly supported independent contribution in the external ablation analysis. Feature consistency and prototype regularization showed no conclusive independent overall gains in Macro-F1. The framework updated 1.253841% of the model parameters. The results provide exploratory cross-dataset evidence for stain-aware, parameter-efficient federation; they do not establish formal privacy, patient-level independence, prospective deployment, or clinical validation.',
+    abstractSource: 'Public arXiv abstract',
+    areas: ['Federated learning', 'Computational pathology', 'Cross-site robustness'],
+    featured: false,
+  },
+  {
+    id: '2026-icca-gesturepolypseg',
+    shortTitle: 'GesturePolypSeg',
+    title: 'GesturePolypSeg: An HCI Interface for Explainable and Uncertainty-Aware Binary Polyp Segmentation',
+    authors: ['M. M. Hafiz', 'Md. Ashikur Rahman Shakib', 'Md. Maruf Hossain', 'Muntasir Mehrab', 'Md. Arafat Rahaman Sifat', 'Abdus Salam'],
+    status: 'In press',
+    year: 2026,
+    venue: 'International Conference on Computing Advancements (ICCA 2026)',
+    officialUrl: 'https://icca.aiub.edu/',
+    codeUrl: 'https://github.com/rafa404/GesturePolypSeg',
+    abstract: 'Polyp segmentation models usually show results as static binary masks, which makes it difficult to inspect uncertain boundaries and understand where the model is focusing during image review. This paper presents a hand-gesture-controlled and uncertainty-aware academic HCI prototype, called GesturePolypSeg, for binary polyp segmentation in colonoscopy images. It combines a SwinV2 Transformer-based segmentation backend with Evidential Deep Learning, boundary uncertainty estimation, and Grad-CAM-style visualisation. The original image, predicted mask, overlay, Grad-CAM view, EDL uncertainty map, boundary uncertainty map, and combined result view are shown in a PyQt6 interface. The touchless navigation is done using a PAJ7620U2 gesture sensor and an Arduino Uno microcontroller with USB serial communication. The system was evaluated on Kvasir-SEG validation and test splits, as well as external test sets (CVC-ClinicDB and ETIS-Larib). The model achieved Dice/IoU scores of 0.925/0.860, 0.918/0.849, 0.862/0.758, and 0.823/0.700 across the evaluated datasets, with 25.147 ms per image latency on CUDA. The gesture interface was technically evaluated over 75 trials and achieved 88.0% overall recognition accuracy. All correctly recognised commands produced the intended interface view, and no unintended activations were observed during the testing session.',
+    abstractSource: 'Accepted camera-ready manuscript',
+    areas: ['Polyp segmentation', 'Uncertainty quantification', 'Human-computer interaction'],
+    featured: false,
+  },
+  {
+    id: '2026-becithcon-nuclei-segmentation',
+    shortTitle: 'Nuclei Segmentation Architectures',
+    title: 'Comparative Evaluation of CNN, Hybrid, and Transformer Architectures for Nuclei Segmentation in Histopathology',
+    authors: ['A. K. M. Shahriar Emtiaz', 'M. M. Golam Hafiz', 'Mamun Mahmud', 'Muhammad Muhtasim Shahriar', 'Md. Kishor Morol'],
+    status: 'In press',
+    year: 2026,
+    venue: 'IEEE BECITHCON 2026',
+    publisher: 'IEEE',
+    officialUrl: 'https://becithcon.org/2026/',
+    abstract: 'Reliable nuclei delineation supports quantitative histopathology image analysis but remains difficult in crowded cellular regions with weak nuclear boundaries, staining variation, and heterogeneous tissue appearance. This study presents a controlled comparison of binary semantic nuclei segmentation on the PanNuke dataset. The task is formulated as foreground–background mask prediction, with all nuclear pixels assigned to one foreground class and non-nuclear tissue pixels assigned to the background. Five representative segmentation architectures were evaluated: DeepLabV3+, HoVer-Net-style semantic segmentation, Swin-UNet, TransUNet, and U-Net++. The models used the same preprocessing, augmentation, loss function, optimisation strategy, checkpoint-selection rule, and evaluation protocol. Performance was measured using the Dice coefficient, intersection over union (IoU), precision, recall, pixel accuracy, 95th-percentile Hausdorff distance (HD95), and average symmetric surface distance (ASSD). Swin-UNet achieved the highest Dice coefficient (0.8610) and IoU (0.7559), TransUNet achieved the highest precision (0.8546), and DeepLabV3+ produced the lowest HD95 (29.4193) and ASSD (9.8439). The small differences among the models indicate that several architecture families attained similar segmentation quality under the common binary nuclei segmentation protocol. Because no statistical significance testing was performed, these results describe comparative performance within the implemented experimental setting rather than statistically established superiority.',
+    abstractSource: 'Accepted manuscript',
+    areas: ['Histopathology', 'Nuclei segmentation', 'Vision transformers'],
+    featured: false,
+  },
+  {
+    id: '2026-dicta-privacy-fl-histopathology',
+    shortTitle: 'Privacy-Aware FL Histopathology',
+    title: 'Privacy-Aware Federated Benchmarking and Explainability for Multi-Class Histopathology Image Classification',
+    authors: ['Muhammad Muhtasim Shahriar', 'Mamun Mahmud', 'M. M. Golam Hafiz', 'Dipta Justin Gomes', 'Md. Mohammad Ali Moni'],
+    status: 'In press',
+    year: 2026,
+    venue: 'Digital Image Computing: Techniques and Applications (DICTA 2026)',
+    publisher: 'IEEE',
+    officialUrl: 'https://dicta2026.dictaconference.org/',
+    abstract: 'Federated learning (FL) enables collaborative medical image analysis without directly pooling sensitive raw data, yet the behavior of modern deep architectures under FL constraints remains underexplored for lung histopathology. This paper presents a controlled FedAvg-based benchmark of convolutional neural networks, Vision Transformer variants, Hibou Vision Transformer, and hybrid CNN–ViT models for three-class lung histopathology classification: adenocarcinoma (ACA), normal tissue (N), and squamous cell carcinoma (SCC). Experiments are conducted in a simulated cross-silo FL setting with two clients, two local epochs per round, and gradient accumulation on a merged public histopathology corpus of 6,246 images split into 75% training, 15% validation, and 10% testing. The validation-selected EfficientNet-B7 checkpoint achieved 99.84% test accuracy and a macro-F1 score of 0.997996 on the 625-image held-out test set, with only one SCC sample misclassified as ACA. Beyond benchmarking, the best checkpoint was evaluated using calibration analysis, bootstrap confidence intervals, ROC/PR curves, error analysis, communication-cost estimation, and post-hoc explainability using Grad-CAM, Input Gradient, Input×Gradient, and LIME. Results indicate strong benchmark-level performance, while external validation, communication cost, and formal privacy guarantees remain important before clinical deployment.',
+    abstractSource: 'Accepted camera-ready manuscript',
+    areas: ['Federated learning', 'Lung histopathology', 'Explainable AI'],
+    featured: false,
+  },
+  {
+    id: 'diffbiz-guard-synthetic-tabular',
+    shortTitle: 'DiffBiz-Guard',
+    title: 'DiffBiz-Guard: Inference-Time Numerical Business-Rule Guidance for Auditable Synthetic Tabular Data Release',
+    authors: ['M.M. Golam Hafiz', 'Safia Akter Simi', 'Md. Rakibul Islam', 'M. F. Mridha'],
+    status: 'Under review',
+    venue: 'Machine Learning with Applications',
+    publisher: 'Elsevier',
+    areas: ['Synthetic tabular data', 'Numerical rule guidance', 'Auditable AI'],
+    featured: false,
+    metadataOnly: true,
+  },
+  {
+    id: 'prerequisite-aware-learning-path-recommendation',
+    shortTitle: 'Prerequisite-Aware Learning Paths',
+    title: 'Reliable Prerequisite-Aware Learning Path Recommendation under Uncertain Knowledge Structures: Long-Horizon Evaluation and Cross-Dataset Validation',
+    authors: ['M.M. Golam Hafiz', 'A. K. M. Shahriar Emtiaz', 'Safia Akter Simi', 'Md. Rakibul Islam', 'M. F. Mridha'],
+    status: 'Under review',
+    venue: 'Computers & Education: Artificial Intelligence',
+    publisher: 'Elsevier',
+    areas: ['Structured learning', 'Learning path recommendation', 'Cross-dataset validation'],
+    featured: false,
+    metadataOnly: true,
+  },
+  {
+    id: 'diffusionref-imu',
+    shortTitle: 'DiffusionRef-IMU',
+    title: 'DiffusionRef-IMU: Guide-Anchored Residual Diffusion for Cross-Location Inertial Measurement Unit Translation',
+    authors: ['M.M. Golam Hafiz', 'Safia Akter Simi', 'Md. Rakibul Islam', 'M. F. Mridha'],
+    status: 'Under review',
+    venue: 'Results in Engineering',
+    publisher: 'Elsevier',
+    areas: ['Diffusion models', 'IMU translation', 'Domain generalization'],
+    featured: false,
+    metadataOnly: true,
+  },
+];
+
+export const publicPublicationIds = new Set(publications.map(({ id }) => id));

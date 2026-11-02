@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResearchTopology from '../components/ResearchTopology.astro';
+import ArchitectureGallery from '../components/ArchitectureGallery.astro';
+import { researchAreas } from '../data/site';
+---
+
+<BaseLayout
+  title="Research Programme | M.M. Golam Hafiz"
+  description="Research agenda spanning medical image analysis, federated learning, uncertainty quantification, selective prediction, and explainable AI."
+>
+  <header class="page-hero">
+    <div class="shell">
+      <h1>Research</h1>
+      <p>Evidence-led learning systems for distributed medical data, uncertain predictions, and inspectable model behaviour.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="shell">
+      <ResearchTopology />
+    </div>
+  </section>
+
+  <section class="section section-rule" aria-labelledby="agenda-title">
+    <div class="shell">
+      <div class="section-heading">
+        <h2 id="agenda-title">Research Agenda</h2>
+        <p>Current work is described through verified themes and author-approved review-stage metadata; manuscript content and anonymous submissions remain withheld.</p>
+      </div>
+      <div class="area-grid">
+        {researchAreas.map((area) => (
+          <article class="area-item">
+            <h3>{area.title}</h3>
+            <p>{area.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-rule" aria-labelledby="method-title">
+    <div class="shell detail-grid">
+      <div class="prose">
+        <h2 id="method-title">Method</h2>
+        <p>Projects are evaluated through controlled comparisons, held-out testing, ablation studies, cross-dataset checks, calibration analysis, and explicit examination of model failure. Claims stay bounded by the evidence available in the paper and verified repository record.</p>
+      </div>
+      <dl class="detail-aside">
+        <div class="aside-row"><dt>Clinical domains</dt><dd>Histopathology, MRI, gastrointestinal endoscopy</dd></div>
+        <div class="aside-row"><dt>Learning settings</dt><dd>Centralized, federated, graph-guided, personalized</dd></div>
+        <div class="aside-row"><dt>Reliability tools</dt><dd>Calibration, uncertainty maps, error analysis, explanation views</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section-rule" aria-labelledby="plates-title">
+    <div class="shell">
+      <div class="section-heading">
+        <h2 id="plates-title">Architecture Index</h2>
+        <p>Original architecture figures from public or in-press work, extracted directly from the source PDFs.</p>
+      </div>
+      <ArchitectureGallery />
+    </div>
+  </section>
+</BaseLayout>
